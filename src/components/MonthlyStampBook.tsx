@@ -77,35 +77,34 @@ export function MonthlyStampBook() {
   const totalAllowance = stampedCount * amountPerStamp; // 獲得したお小遣いの合計
 
   return (
-    <div className="max-w-7xl mx-auto p-8">
+    <div className="max-w-full md:max-w-7xl mx-auto px-4 py-6 md:p-8">
       {/* Title */}
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
-          おこづかいスタンプ帳
+      <div className="text-center mb-4 md:mb-8 lg:mb-12">
+        <h1 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-1 md:mb-3 leading-tight">
+          おこづかい<br className="md:hidden" />スタンプ帳
         </h1>
-        <p className="text-purple-600 text-xl">がんばった日にスタンプを押そう！</p>
+        <p className="text-xs md:text-base lg:text-lg text-purple-600">がんばった日にスタンプを押そう！</p>
       </div>
 
       {/* Stamp Book */}
-      <div className="bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 p-10 rounded-3xl shadow-2xl">
-        <div className="bg-white p-10 rounded-2xl">
+      <div className="bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 p-2 md:p-6 lg:p-8 rounded-lg md:rounded-2xl lg:rounded-3xl shadow-2xl">
+        <div className="bg-white p-3 md:p-6 lg:p-8 rounded-lg md:rounded-xl lg:rounded-2xl">
           {/* Month Navigation */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-4 md:mb-6 lg:mb-8">
             <Button
               onClick={goToPrevMonth}
               variant="outline"
-              size="lg"
-              className="flex items-center gap-2"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base py-2 md:py-default"
             >
-              <ChevronLeft className="w-5 h-5" />
-              前月
+              <ChevronLeft className="w-4 h-4" />
+              <span>前月</span>
             </Button>
             
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-purple-700">
-                {year}年 {monthNames[month]}
+            <div className="text-center order-first sm:order-none">
+              <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-purple-700 leading-tight">
+                {year}年<br className="md:hidden" /> {monthNames[month]}
               </h2>
-              <p className="text-purple-500 mt-2">
+              <p className="text-xs md:text-base text-purple-500 mt-1">
                 {stampedCount}/{totalDays}日 スタンプ済み
               </p>
             </div>
@@ -113,20 +112,19 @@ export function MonthlyStampBook() {
             <Button
               onClick={goToNextMonth}
               variant="outline"
-              size="lg"
-              className="flex items-center gap-2"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base py-2 md:py-default"
             >
-              次月
-              <ChevronRight className="w-5 h-5" />
+              <span>次月</span>
+              <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
 
           {/* Day of Week Header */}
-          <div className="grid grid-cols-7 gap-3 mb-3">
+          <div className="grid grid-cols-7 gap-1.5 md:gap-2.5 lg:gap-3 mb-2 md:mb-3">
             {daysOfWeek.map((day) => (
               <div
                 key={day}
-                className="text-center text-xl font-bold text-purple-600 py-3"
+                className="text-center text-xs md:text-sm lg:text-lg font-bold text-purple-600 py-2 md:py-3 h-8 md:h-10 flex items-center justify-center"
               >
                 {day}
               </div>
@@ -134,24 +132,24 @@ export function MonthlyStampBook() {
           </div>
 
           {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-3">
+          <div className="grid grid-cols-7 gap-2 md:gap-2.5 lg:gap-3">
             {days.map((day, index) => (
               <button
                 key={index}
                 onClick={() => toggleStamp(index)}
                 disabled={day.date === 0}
-                className={`aspect-square rounded-2xl border-4 transition-all duration-300 ${
+                className={`rounded-lg md:rounded-xl lg:rounded-2xl border md:border-2 lg:border-3 transition-all duration-300 aspect-square min-h-12 md:min-h-16 lg:min-h-20 flex items-center justify-center p-1 ${
                   day.date === 0
                     ? 'bg-transparent border-transparent cursor-default'
                     : day.stamped
-                    ? 'bg-gradient-to-br from-yellow-300 to-orange-400 border-yellow-500 shadow-xl hover:scale-105 active:scale-95'
+                    ? 'bg-gradient-to-br from-yellow-300 to-orange-400 border-yellow-500 shadow-lg hover:scale-105 active:scale-95'
                     : 'bg-gray-50 border-gray-300 hover:border-purple-400 hover:bg-purple-50 hover:scale-105 active:scale-95'
                 }`}
               >
                 {day.date > 0 && (
-                  <div className="flex flex-col items-center justify-center h-full">
+                  <div className="flex flex-col items-center justify-center w-full h-full gap-0.5">
                     {/* Date Number */}
-                    <div className={`text-2xl font-bold mb-2 ${
+                    <div className={`text-sm md:text-lg lg:text-xl font-bold leading-tight ${
                       day.stamped ? 'text-purple-800' : 'text-gray-600'
                     }`}>
                       {day.date}
@@ -159,20 +157,20 @@ export function MonthlyStampBook() {
 
                     {/* Stamp */}
                     {day.stamped ? (
-                      <div className="relative">
+                      <div className="relative flex items-center justify-center">
                         {/* Stamp Circle */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-12 h-12 border-4 border-red-500 rounded-full opacity-40 rotate-12"></div>
+                        <div className="absolute">
+                          <div className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 border-2 md:border-3 border-red-500 rounded-full opacity-40 rotate-12"></div>
                         </div>
                         
                         {/* Stamp Text */}
-                        <div className="relative text-red-500 text-3xl font-bold rotate-12">
+                        <div className="relative text-red-500 text-sm md:text-lg lg:text-2xl font-bold rotate-12">
                           ★
                         </div>
                       </div>
                     ) : (
-                      <div className="text-gray-300 text-3xl">
-                        ○
+                      <div className="text-gray-300 text-xs md:text-base lg:text-xl leading-none">
+                        ◯
                       </div>
                     )}
                   </div>
@@ -182,40 +180,40 @@ export function MonthlyStampBook() {
           </div>
 
           {/* Allowance Settings */}
-          <div className="mt-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-200">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="text-green-700 text-xl">💰</span>
-                <label className="text-green-700">スタンプ1つ = </label>
+          <div className="mt-4 md:mt-6 lg:mt-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg md:rounded-xl lg:rounded-2xl p-3 md:p-5 lg:p-6 border-2 border-green-200">
+            <div className="flex flex-col gap-3 md:gap-4">
+              <div className="flex flex-wrap items-center justify-center md:justify-between gap-2 md:gap-3">
+                <span className="text-base md:text-lg text-green-700">💰</span>
+                <label className="text-xs md:text-sm text-green-700 text-center md:text-left">スタンプ1つ = </label>
                 <input
                   type="number"
                   min="1"
                   max="1000"
                   value={amountPerStamp}
                   onChange={(e) => setAmountPerStamp(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-20 px-3 py-2 border-2 border-green-300 rounded-lg text-center bg-white"
+                  className="w-14 md:w-20 px-2 md:px-3 py-1.5 md:py-2 border-2 border-green-300 rounded-lg text-center bg-white text-xs md:text-sm"
                 />
-                <span className="text-green-700">円</span>
+                <span className="text-xs md:text-sm text-green-700">円</span>
               </div>
               
-              <div className="bg-gradient-to-r from-yellow-400 to-orange-400 px-6 py-3 rounded-xl shadow-lg">
-                <div className="text-white text-center">
-                  <div className="text-sm">今月のおこづかい</div>
-                  <div className="text-3xl">{totalAllowance.toLocaleString()}円</div>
+              <div className="bg-gradient-to-r from-yellow-400 to-orange-400 px-4 md:px-6 py-2.5 md:py-3 rounded-lg md:rounded-xl shadow-lg text-center">
+                <div className="text-white">
+                  <div className="text-xs md:text-sm">今月のおこづかい</div>
+                  <div className="text-lg md:text-2xl lg:text-3xl font-bold">{totalAllowance.toLocaleString()}円</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Progress Bar */}
-          <div className="mt-4 bg-purple-50 rounded-2xl p-6 border-2 border-purple-200">
-            <div className="flex justify-between items-center mb-3">
-              <span className="text-purple-700 font-medium">今月の進捗</span>
-              <span className="text-purple-700">{Math.round((stampedCount / totalDays) * 100)}%</span>
+          <div className="mt-3 md:mt-4 lg:mt-6 bg-purple-50 rounded-lg md:rounded-xl lg:rounded-2xl p-3 md:p-5 lg:p-6 border-2 border-purple-200">
+            <div className="flex justify-between items-center mb-2 md:mb-3 gap-2">
+              <span className="text-xs md:text-sm text-purple-700 font-medium">今月の進捗</span>
+              <span className="text-xs md:text-sm lg:text-base text-purple-700 font-bold">{Math.round((stampedCount / totalDays) * 100)}%</span>
             </div>
-            <div className="w-full bg-purple-200 rounded-full h-4">
+            <div className="w-full bg-purple-200 rounded-full h-2 md:h-3 lg:h-4">
               <div 
-                className="bg-gradient-to-r from-purple-500 to-pink-500 h-4 rounded-full transition-all duration-500"
+                className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 md:h-3 lg:h-4 rounded-full transition-all duration-500"
                 style={{ width: `${(stampedCount / totalDays) * 100}%` }}
               ></div>
             </div>
@@ -224,10 +222,10 @@ export function MonthlyStampBook() {
       </div>
 
       {/* Motivation Message */}
-      <div className="mt-8 text-center">
-        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-8 py-4 rounded-full shadow-xl">
-          <span className="text-2xl">✨</span>
-          <span className="font-bold text-lg">
+      <div className="mt-4 md:mt-6 lg:mt-8 text-center">
+        <div className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-4 sm:px-6 md:px-8 py-3 md:py-4 rounded-full shadow-lg">
+          <span className="text-lg md:text-2xl">✨</span>
+          <span className="font-bold text-xs sm:text-sm md:text-base lg:text-lg leading-tight text-center sm:text-left">
             {stampedCount === totalDays
               ? '全部完了！すごい！'
               : stampedCount >= totalDays * 0.8
@@ -236,7 +234,7 @@ export function MonthlyStampBook() {
               ? 'もう少し！がんばろう！'
               : 'さあ、スタンプを集めよう！'}
           </span>
-          <span className="text-2xl">✨</span>
+          <span className="text-lg md:text-2xl">✨</span>
         </div>
       </div>
     </div>
